@@ -10,20 +10,24 @@ let section = document.querySelectorAll('section');
 let tabLinks = document.querySelectorAll('header .tabbar a');
 
 window.onscroll = () => {
+
   menu.classList.remove('fa-times');
   tabbar.classList.remove('active');
-  section.forEach(sec => {
+   
+  section.forEach(sec =>{
+
     let top = window.scrollY;
     let height = sec.offsetHeight;
     let offset = sec.offsetTop - 150;
     let id = sec.getAttribute('id');
 
-    if(top => offset && top < offset + height){
-      tabLinks.forEach(links => {
+    if(top >= offset && top < offset + height){
+      tabLinks.forEach(links =>{
         links.classList.remove('active');
-        document.querySelectorAll('header .tabbar a[href*='+ id+']').classList
+        document.querySelector('header .tabbar a[href*='+id+']').classList.add('active');
       });
     };
+
   });
 };
 
@@ -35,12 +39,15 @@ document.querySelector('#close').onclick = () => {
     document.querySelector('#search-form').classList.remove('active');
 }
 
-document.querySelector('#heart-icon').onclick = () => {
-  document.querySelector('#Btn-heart').classList.toggle('active')
-}
+// document.querySelector('#heart-icon').onclick = () => {
+//     document.querySelector('#heart-form').classList.toggle('active');
+// }
+// // document.querySelector('#close').onclick = () => {
+// //     document.querySelector('#heart-form').classList.remove('active');
+// // }
 
 // Swiper home
-let swiper = new Swiper(".home-slide", {
+let swipper = new Swiper(".home-slide", {
   spaceBetween: 30,
   centeredSlides: true,
   autoplay: {
@@ -55,16 +62,17 @@ let swiper = new Swiper(".home-slide", {
 });
 
 // Swiper home
-let swipper = new Swiper(".review-slide", {
+let swiper = new Swiper(".review-slider", {
   spaceBetween: 20,
   centeredSlides: true,
   autoplay: {
-    delay: 3500,
+    delay: 7500,
     disableOnInteraction: false,
   },
+  loop:true,
   breakpoints: {
     0: {
-      slidesPerView: 1,
+        slidesPerView: 1,
     },
     640: {
       slidesPerView: 2,
@@ -76,5 +84,14 @@ let swipper = new Swiper(".review-slide", {
       slidesPerView: 3,
     },
   },
-  loop:true,
 });
+
+function loader(){
+    document.querySelector('.loader-container').classList.add('fade-out');
+  }
+  
+  function fadeOut(){
+    setInterval(loader, 3000);
+  }
+  
+  window.onload = fadeOut;
